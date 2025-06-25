@@ -9,6 +9,9 @@ import {
 
 dotenv.config();
 
+console.log("🧪 Loaded OPENROUTER_API_KEY:", !!process.env.OPENROUTER_API_KEY);
+
+
 const openai = new OpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
   baseURL: 'https://openrouter.ai/api/v1',
