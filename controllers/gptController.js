@@ -58,12 +58,21 @@ Respond in this exact format:
 Only choose from the list above. Do not invent titles.
 `.trim();
 
-    const completion = await openai.chat.completions.create({
+      const completion = await axios.post(
+    'https://openrouter.ai/api/v1/chat/completions',
+    {
       model: 'mistralai/mistral-7b-instruct',
       messages: [{ role: 'user', content: systemPrompt }],
-    });
+    },
+    {
+      headers: {
+        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
 
-    const reply = completion.choices?.[0]?.message?.content;
+  const reply = completion.data?.choices?.[0]?.message?.content;
     console.log('🧠 AI raw reply:\n', reply);
 
     if (!reply) {
